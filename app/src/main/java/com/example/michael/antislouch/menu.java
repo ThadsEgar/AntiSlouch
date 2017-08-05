@@ -1,5 +1,6 @@
 package com.example.michael.antislouch;
 
+import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
@@ -32,6 +33,15 @@ public class menu extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+    }
+
+
+    //This returns the angle orientation by getting x,y,z
+    private int angleOrientation(){
+        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
+        return 0;
+
     }
 
     @Override
