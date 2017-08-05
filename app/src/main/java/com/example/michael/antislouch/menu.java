@@ -1,5 +1,7 @@
 package com.example.michael.antislouch;
 
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -11,6 +13,8 @@ import android.view.MenuItem;
 
 public class menu extends AppCompatActivity {
 
+    private SensorManager mSensorManager;
+    private Sensor mSensor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

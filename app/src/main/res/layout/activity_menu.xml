@@ -20,7 +20,10 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_menu" />
+    <include layout="@layout/content_menu"
+        android:id="@+id/include"
+        android:layout_width="match_parent"
+        android:layout_height="529dp" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
@@ -29,5 +32,14 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@android:drawable/ic_dialog_email" />
+
+    <Button
+        android:id="@+id/calibrate_gyroscope"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center_horizontal"
+        android:text="Calibrate Gyroscope"
+        app:layout_anchor="@+id/include"
+        app:layout_anchorGravity="bottom|center_horizontal" />
 
 </android.support.design.widget.CoordinatorLayout>
