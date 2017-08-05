@@ -17,4 +17,37 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/button"
+        android:layout_width="89dp"
+        android:layout_height="48dp"
+        android:text="Live Feed"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="88dp"
+        android:layout_height="48dp"
+        android:text="Graph"
+        app:layout_constraintLeft_toRightOf="@+id/button"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintRight_toLeftOf="@+id/button3"
+        android:layout_marginRight="8dp"
+        app:layout_constraintHorizontal_bias="0.514"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="16dp" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="91dp"
+        android:layout_height="48dp"
+        android:text="Settings"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
+        app:layout_constraintRight_toRightOf="parent" />
+
 </android.support.constraint.ConstraintLayout>
