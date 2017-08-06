@@ -16,17 +16,39 @@ import android.widget.Button;
 
 public class menu extends AppCompatActivity {
 
+    public Button settingsButton;
+
     private SensorManager mSensorManager;
     private Sensor mSensor;
     Button graph_menu;
+
+    public void initButtons()
+    {
+        settingsButton = (Button)findViewById(R.id.Settings);
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+
+                Intent toy = new Intent(menu.this, settings.class);
+                startActivity(toy);
+            }
+        });
+
+
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_menu);
         buttonListener();
 
-
+        initButtons();
     }
+
+
+
 
 
 
@@ -51,12 +73,14 @@ public class menu extends AppCompatActivity {
 
     }
 
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_menu, menu);
         return true;
     }
 
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -70,4 +94,6 @@ public class menu extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }

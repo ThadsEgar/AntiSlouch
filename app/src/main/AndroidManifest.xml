@@ -20,6 +20,10 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".settings"
+            android:label="@string/title_activity_settings"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".graph_menu"
             android:label="@string/title_activity_graph_menu"
             android:theme="@style/AppTheme.NoActionBar"></activity>
