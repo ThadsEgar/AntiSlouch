@@ -54,7 +54,6 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
-        Horizontal_bias="0.4"
         app:layout_constraintLeft_toRightOf="@+id/Feed"
         app:layout_constraintRight_toLeftOf="@+id/Settings"
 
