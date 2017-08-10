@@ -8,59 +8,83 @@
     tools:context="com.example.michael.antislouch.menu"
 >
 
-    <Button
-        android:id="@+id/Feed"
-        android:layout_width="89dp"
-        android:layout_height="48dp"
-        android:text="Live Feed"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="72dp"
-        android:layout_marginLeft="25dp"
-        app:layout_constraintLeft_toLeftOf="parent" />
 
-    <Button
-        android:id="@+id/Graph"
-        android:layout_width="88dp"
-        android:layout_height="48dp"
+    <LinearLayout
+        android:id="@+id/Layout2"
+        android:layout_width="384dp"
+        android:layout_height="245dp"
+        android:layout_marginBottom="24dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="72dp"
-        android:text="Graph"
-        app:layout_constraintHorizontal_bias="0.4"
-        app:layout_constraintLeft_toRightOf="@+id/Feed"
-        app:layout_constraintRight_toLeftOf="@+id/Settings"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/Settings"
-        android:layout_width="91dp"
-        android:layout_height="48dp"
-        android:text="Settings"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="72dp"
-        android:layout_marginRight="16dp"
-        app:layout_constraintRight_toRightOf="parent" />
-
-
-    <Button
-        android:id="@+id/calibrate_gyroscope"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top|center_horizontal"
-        android:text="Calibrate Gyroscope"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="450dp"
-
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/Feed"
-        app:layout_constraintRight_toLeftOf="@+id/Settings"
+        app:layout_constraintTop_toBottomOf="@+id/Layout1">
+
+        <Button
+            android:id="@+id/Graph"
+            android:layout_width="195dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="@android:color/holo_orange_light"
+            android:text="Graph"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="8dp" />
+
+        <Button
+            android:id="@+id/Settings"
+            android:layout_width="195dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="@android:color/holo_blue_dark"
+            android:text="Settings"
+            tools:layout_editor_absoluteX="-7dp"
+            tools:layout_editor_absoluteY="8dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/Layout1"
+        android:layout_width="384dp"
+        android:layout_height="245dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:orientation="horizontal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/calibrate_gyroscope"
+            android:layout_width="194dp"
+            android:layout_height="match_parent"
 
 
+            android:layout_marginLeft="0dp"
+            android:layout_marginStart="0dp"
+            android:backgroundTint="@android:color/holo_green_light"
+            android:text="Calibrate"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
+        <Button
+            android:id="@+id/Feed"
+            android:layout_width="195dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="@android:color/holo_red_light"
+            android:text="Live Feed"
+            tools:layout_editor_absoluteX="25dp"
+            tools:layout_editor_absoluteY="8dp" />
 
-        />
+    </LinearLayout>
 
     <!--android:layout_width="91dp"-->
         <!--android:layout_height="48dp"-->
