@@ -8,4 +8,38 @@
     tools:context="com.example.michael.antislouch.settings"
     tools:showIn="@layout/activity_settings">
 
+    <LinearLayout
+        android:layout_width="368dp"
+        android:layout_height="495dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.625">
+
+        <CheckBox
+            android:id="@+id/notifications"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:checked="false"
+            android:duplicateParentState="false"
+            android:text="Enable Notifications" />
+
+        <CheckBox
+            android:id="@+id/vibration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Enable Vibrations" />
+
+        <Button
+            android:id="@+id/Sound_Enable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Enable Sound Test" />
+
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>
