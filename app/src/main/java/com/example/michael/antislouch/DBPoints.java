@@ -12,6 +12,19 @@ import android.database.Cursor;
 public class DBPoints {
     //Constants
     private static final String TAG = "DBPoints";
+    //Fields
+    public static final String KEY_TIME = "Time";
+    public static final String DEGREES = "Degrees";
+    public static final String HEALTHY_POSTURE = "Healthy Posture";
+
+    //Field numbers
+    public static final int COL_TIME = 1;
+    public static final int COL_DEGREES = 2;
+    public static final int COL_HEALTHY_POSTURE = 3;
+
+    public static final String[] COL_NAMES = {KEY_TIME, DEGREES, HEALTHY_POSTURE};
+
+
 
     public DBPoints(graph_menu graph_menu) {
     }
@@ -22,7 +35,7 @@ public class DBPoints {
     public void close() {
     }
 
-    public long insertRow(int x, int y, int z) {
+    public long insertRow(int degrees, int time) {
 
         return 0;
     }

@@ -66,8 +66,8 @@ public class graph_menu extends AppCompatActivity {
 
 
     }
-    public void insertPoints(int x, int y, int z, int hour, int month, ){
-        long id = dbadapter.insertRow(x, y, z);
+    public void insertPoints(int degrees, int time){
+        long id = dbadapter.insertRow(degrees, time);
 
     }
 
@@ -101,7 +101,7 @@ public class graph_menu extends AppCompatActivity {
         }
         DataPoint [] pointsArray = points.toArray(new DataPoint[points.size()]);
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(pointsArray);
-        
+
 
 
         graph.addSeries(series);
