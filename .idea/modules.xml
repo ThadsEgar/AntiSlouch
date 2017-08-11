@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/AntiSlouch.iml" filepath="$PROJECT_DIR$/AntiSlouch.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Anti_Slouch.iml" filepath="$PROJECT_DIR$/Anti_Slouch.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

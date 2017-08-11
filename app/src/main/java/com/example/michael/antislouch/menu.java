@@ -17,9 +17,11 @@ import android.widget.Button;
 public class menu extends AppCompatActivity {
 
     public Button settingsButton;
-
+    public Sensor mSensor;
     private SensorManager mSensorManager;
-    private Sensor mSensor;
+
+
+    private Sensor gyroscopeSensor;
     Button graph_menu;
 
     public void initButtons()
