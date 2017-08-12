@@ -35,6 +35,21 @@ public class graph_menu extends AppCompatActivity {
         setContentView(R.layout.activity_graph_menu);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         openDB();
+        Log.v("graph_menu", "openDB");
+        insertPoints(1,55);
+        Log.v("graph_menu", "POINT1");
+
+        insertPoints(2, 75);
+        Log.v("graph_menu", "POINT2");
+
+
+        insertPoints(3, 90);
+        insertPoints(4, 85);
+        makePoints();
+        Log.v("graph_menu", "Make points");
+
+        closeDB();
+        Log.v("graph_menu", "close DB");
 
 
 
@@ -66,8 +81,15 @@ public class graph_menu extends AppCompatActivity {
 
 
     }
-    public void insertPoints(int degrees, int time){
-        long id = dbadapter.insertRow(degrees, time);
+    public void insertPoints(int time, int degrees){
+        int healthy_posture = 0;
+        //Hard coded in case we want customization
+        if(degrees >= 85){
+            healthy_posture = 1;
+        }
+
+
+        long id = dbadapter.insertRow(time, degrees, healthy_posture);
 
     }
 
@@ -87,10 +109,13 @@ public class graph_menu extends AppCompatActivity {
         //Reset cursor to start to see data
         if(cursor.moveToFirst()){
             do{
-                int id = cursor.getInt(0);
-                int degrees = cursor.getInt(0);
-                int time = cursor.getInt(0);
-                points.add(new DataPoint(degrees, time));
+                int id = cursor.getInt(DBPoints.COL_ROWID);
+                int degrees = cursor.getInt(DBPoints.COL_DEGREES);
+                int time = cursor.getInt(DBPoints.COL_TIME);
+
+                Log.v("graph_menu", DBPoints.COL_ROWID + " " + DBPoints.COL_DEGREES + " " + DBPoints.COL_TIME);
+                Log.v("graph_menu", time + " " + degrees + " " + id);
+                points.add(new DataPoint(time, degrees));
 
             }
 

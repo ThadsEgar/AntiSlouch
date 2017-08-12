@@ -22,16 +22,16 @@ public class DBPoints {
     public static final int COL_ROWID = 0;
 
     //Fields
-    public static final String KEY_TIME = "Time";
+    public static final String TIME = "Time";
     public static final String DEGREES = "Degrees";
-    public static final String HEALTHY_POSTURE = "Healthy Posture";
+    public static final String HEALTHY_POSTURE = "Healthy_Posture";
 
     //Field numbers
     public static final int COL_TIME = 1;
     public static final int COL_DEGREES = 2;
     public static final int COL_HEALTHY_POSTURE = 3;
 
-    public static final String[] COL_NAMES = {KEY_TIME, DEGREES, HEALTHY_POSTURE};
+    public static final String[] COL_NAMES = {KEY_ROWID, TIME, DEGREES, HEALTHY_POSTURE};
 
     //version
     public static final int VERSION = 1;
@@ -41,9 +41,14 @@ public class DBPoints {
 
     private static final String DATABASE_CREATE =
             "create table " + DATABASE_TABLE
-                    + " (" + KEY_ROWID + " integer primary key autoincrement, "+KEY_TIME +
-                    "integer not null " + DEGREES +
-                    " integer not null, "+ HEALTHY_POSTURE + " integer not null);";
+                    + " (" + KEY_ROWID + " integer primary key autoincrement, "
+
+                    + TIME + " integer not null, "
+                    + DEGREES + " integer not null, "
+                    + HEALTHY_POSTURE + " integer not null"
+
+                    + ");";
+
 
 
 
@@ -75,11 +80,11 @@ public class DBPoints {
 
 
     //Inserts data
-    public long insertRow(int degrees, int time, int healthyposture) {
+    public long insertRow(int time, int degrees, int healthy_posture) {
         ContentValues values = new ContentValues();
+        values.put(TIME, time);
         values.put(DEGREES, degrees);
-        values.put(KEY_TIME, time);
-        values.put(HEALTHY_POSTURE, healthyposture);
+        values.put(HEALTHY_POSTURE, healthy_posture);
         return DB.insert(DATABASE_TABLE, null, values);
 
 
