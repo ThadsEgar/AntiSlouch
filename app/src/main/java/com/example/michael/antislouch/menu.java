@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.Toast;
 
 import java.util.TimerTask;
 
@@ -26,9 +27,12 @@ public class menu extends AppCompatActivity implements SensorEventListener {
     public Sensor mSensor;
     private SensorManager mSensorManager;
 
+    private final int DEG_MAX = 105;
+    private final int DEG_MIN = 85;
     private Handler handler;
 
     private Sensor gyroscopeSensor;
+    private DBPoints dbAdapter;
     Button graph_menu;
 
     public void initButtons()
@@ -86,7 +90,7 @@ public class menu extends AppCompatActivity implements SensorEventListener {
 
         //Initiate thread to check orientation
         public void run() {
-
+            onSensorChanged(sensor);
 
 
 
@@ -119,7 +123,31 @@ public class menu extends AppCompatActivity implements SensorEventListener {
 
             }
 
+            //Checks if neither of hte values are null,
+            //which means that somme of them have a
+            //new rotation matrix
+            if(!(axisMag == null || axisAccel == null)){
+                boolean matrixExist = SensorManager.getRotationMatrix(inR, I, axisAccel, axisMag);
+                //Gets the new orientational values from
+                //change in factor
+                if(matrixExist){
+                    SensorManager.getOrientation(inR, orientationDegrees);
+                    azimuthDegrees = Math.toDegrees(orientationDegrees[0]);
+                    pitchDegrees = Math.toDegrees(orientationDegrees[1]);
+                    rollDegrees = Math.toDegrees(orientationDegrees[2]);
+                    if(rollDegrees < DEG_MIN){
+                        Toast.makeText(getApplicationContext(),
+                                "Your head is too low.",Toast.LENGTH_SHORT).show();
+                    }
+                    else if(rollDegrees > DEG_MAX){
+                        Toast.makeText(getApplicationContext(),
+                                "Your head is too high.",Toast.LENGTH_SHORT).show();
+                    }
+                    else{
 
+                    }
+                }
+            }
 
         }
     }
