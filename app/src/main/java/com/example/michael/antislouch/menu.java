@@ -3,8 +3,12 @@ package com.example.michael.antislouch;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorEventListener2;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -14,12 +18,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 
-public class menu extends AppCompatActivity {
+import java.util.TimerTask;
+
+public class menu extends AppCompatActivity implements SensorEventListener {
 
     public Button settingsButton;
     public Sensor mSensor;
     private SensorManager mSensorManager;
 
+    private Handler handler;
 
     private Sensor gyroscopeSensor;
     Button graph_menu;
@@ -40,6 +47,89 @@ public class menu extends AppCompatActivity {
 
     }
 
+    //Nested Orientation class to implement Runnable to make background task for orientation
+    public class Orientation implements SensorEventListener, Runnable {
+
+
+        private SensorManager mSensorManager;
+
+
+        float[] inR;
+        float[] I;
+        float[] axisAccel;
+        float[] axisMag;
+        float[] orientationDegrees;
+
+        double azimuthDegrees;
+        double pitchDegrees;
+        double rollDegrees;
+
+
+        //Contstructor
+        public Orientation() {
+            mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+            inR = new float[16];
+            I = new float[16];
+            axisAccel = new float[3];
+            axisMag = new float[3];
+            orientationDegrees = new float[3];
+            azimuthDegrees = 0;
+            pitchDegrees = 0;
+            rollDegrees = 0;
+
+            //Registers class for accelerometer and magnetic sensor
+            mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
+                    SensorManager.SENSOR_DELAY_NORMAL);
+            mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD),
+                    SensorManager.SENSOR_DELAY_NORMAL);
+        }
+
+        //Initiate thread to check orientation
+        public void run() {
+
+
+
+
+        }
+
+        //Do not need to check accuracy as it will only
+        //be one point, so it would be very insignificant
+        @Override
+        public void onAccuracyChanged(Sensor sensor, int i) {
+
+        }
+
+        //Checks if there are new orientation values,
+        //and if there is, then it updates the user
+        @Override
+        public void onSensorChanged(SensorEvent sensorEvent) {
+
+            //Checks if the accuracy of the sensor event data
+            //is reliable or not
+            if (sensorEvent.accuracy == SensorManager.SENSOR_STATUS_UNRELIABLE)
+                return;
+
+            //Checks the sensor that generated this event and see
+            //which had changed
+            if(sensorEvent.sensor.getType() == Sensor.TYPE_ACCELEROMETER){
+                axisAccel = sensorEvent.values.clone();
+            }
+            else if(sensorEvent.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD){
+                axisMag = sensorEvent.values.clone();
+
+            }
+
+
+
+        }
+    }
+
+
+
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +137,28 @@ public class menu extends AppCompatActivity {
         buttonListener();
 
         initButtons();
+
+        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+
+    }
+
+
+
+
+    @Override
+    public void onSensorChanged(SensorEvent sensorEvent) {
+
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int i) {
+
+    }
+
+
+
+    public void initiateTime(){
+
     }
 
 

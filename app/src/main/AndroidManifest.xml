@@ -30,7 +30,12 @@
         <activity
             android:name=".live"
             android:label="@string/title_activity_live"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <service
+            android:name=".Orientation"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>
