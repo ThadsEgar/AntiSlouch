@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.util.Date;
+
 /**
  * Created by abhi on 8/10/17.
  */
@@ -80,9 +82,9 @@ public class DBPoints {
 
 
     //Inserts data
-    public long insertRow(int time, int degrees, int healthy_posture) {
+    public long insertRow(Date time, int degrees, int healthy_posture) {
         ContentValues values = new ContentValues();
-        values.put(TIME, time);
+        values.put(TIME, time.getTime());
         values.put(DEGREES, degrees);
         values.put(HEALTHY_POSTURE, healthy_posture);
         return DB.insert(DATABASE_TABLE, null, values);

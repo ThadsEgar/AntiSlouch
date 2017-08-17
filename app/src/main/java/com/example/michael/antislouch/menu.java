@@ -9,6 +9,7 @@ import android.hardware.SensorEventListener2;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.PowerManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -19,10 +20,13 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.TimerTask;
 
-public class menu extends AppCompatActivity implements SensorEventListener {
+public class menu extends AppCompatActivity{
 
+    DBPoints dbadapter;
     public Button settingsButton;
     public Sensor mSensor;
     private SensorManager mSensorManager;
@@ -68,6 +72,9 @@ public class menu extends AppCompatActivity implements SensorEventListener {
         double pitchDegrees;
         double rollDegrees;
 
+        Calendar calendar;
+
+
 
         //Contstructor
         public Orientation() {
@@ -80,18 +87,16 @@ public class menu extends AppCompatActivity implements SensorEventListener {
             azimuthDegrees = 0;
             pitchDegrees = 0;
             rollDegrees = 0;
+            calendar = Calendar.getInstance();
+        }
 
+        //Initiate thread to check orientation
+        public void run() {
             //Registers class for accelerometer and magnetic sensor
             mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
                     SensorManager.SENSOR_DELAY_NORMAL);
             mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD),
                     SensorManager.SENSOR_DELAY_NORMAL);
-        }
-
-        //Initiate thread to check orientation
-        public void run() {
-            onSensorChanged(sensor);
-
 
 
         }
@@ -135,24 +140,49 @@ public class menu extends AppCompatActivity implements SensorEventListener {
                     azimuthDegrees = Math.toDegrees(orientationDegrees[0]);
                     pitchDegrees = Math.toDegrees(orientationDegrees[1]);
                     rollDegrees = Math.toDegrees(orientationDegrees[2]);
-                    if(rollDegrees < DEG_MIN){
-                        Toast.makeText(getApplicationContext(),
-                                "Your head is too low.",Toast.LENGTH_SHORT).show();
-                    }
-                    else if(rollDegrees > DEG_MAX){
-                        Toast.makeText(getApplicationContext(),
-                                "Your head is too high.",Toast.LENGTH_SHORT).show();
-                    }
-                    else{
-
+                    //Checks if the phone is asllep or not
+                    PowerManager pmanager = (PowerManager) getSystemService(Context.POWER_SERVICE);
+                    boolean sleepMode = pmanager.isInteractive();
+                    if(sleepMode){
+                        int healthy_posture = 1;
+                        if(rollDegrees < DEG_MIN){
+                            healthy_posture = 0;
+                            Toast.makeText(getApplicationContext(),
+                                    "Your head is too low.",Toast.LENGTH_SHORT).show();
+                        }
+                        else if(rollDegrees > DEG_MAX){
+                            healthy_posture = 0;
+                            Toast.makeText(getApplicationContext(),
+                                    "Your head is too high.",Toast.LENGTH_SHORT).show();
+                        }
+                        insertPoints(calendar.getTime(), (int) rollDegrees, healthy_posture);
                     }
                 }
             }
+        }
+
+        public void insertPoints(Date time, int degrees, int healthy_posture){
+            long id = dbadapter.insertRow(time, degrees, healthy_posture);
 
         }
     }
 
 
+
+
+
+    private void closeDB() {
+        dbadapter.close();
+
+    }
+
+    private void openDB() {
+        dbadapter = new DBPoints(this);
+        dbadapter.open();
+
+
+
+    }
 
 
 
@@ -173,15 +203,6 @@ public class menu extends AppCompatActivity implements SensorEventListener {
 
 
 
-    @Override
-    public void onSensorChanged(SensorEvent sensorEvent) {
-
-    }
-
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int i) {
-
-    }
 
 
 
@@ -220,6 +241,7 @@ public class menu extends AppCompatActivity implements SensorEventListener {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_menu, menu);
         return true;
+
     }
 
     @Override

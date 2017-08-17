@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.DataPointInterface;
 import com.jjoe64.graphview.series.LineGraphSeries;
@@ -36,15 +37,15 @@ public class graph_menu extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         openDB();
         Log.v("graph_menu", "openDB");
-        insertPoints(1,55);
+//        insertPoints(1,55);
         Log.v("graph_menu", "POINT1");
 
-        insertPoints(2, 75);
+//        insertPoints(2, 75);
         Log.v("graph_menu", "POINT2");
 
 
-        insertPoints(3, 90);
-        insertPoints(4, 85);
+//        insertPoints(3, 90);
+//        insertPoints(4, 85);
         makePoints();
         Log.v("graph_menu", "Make points");
 
@@ -81,17 +82,17 @@ public class graph_menu extends AppCompatActivity {
 
 
     }
-    public void insertPoints(int time, int degrees){
-        int healthy_posture = 0;
-        //Hard coded in case we want customization
-        if(degrees >= 85){
-            healthy_posture = 1;
-        }
-
-
-        long id = dbadapter.insertRow(time, degrees, healthy_posture);
-
-    }
+//    public void insertPoints(int time, int degrees){
+//        int healthy_posture = 0;
+//        //Hard coded in case we want customization
+//        if(degrees >= 85){
+//            healthy_posture = 1;
+//        }
+//
+//
+//        long id = dbadapter.insertRow(time, degrees, healthy_posture);
+//
+//    }
 
 
     public void makePoints(){
@@ -130,6 +131,9 @@ public class graph_menu extends AppCompatActivity {
 
 
         graph.addSeries(series);
+        //date time format
+        graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(this));
+
 
 
     }
