@@ -24,7 +24,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.TimerTask;
 
-public class menu extends AppCompatActivity{
+public class menu extends AppCompatActivity {
 
     DBPoints dbadapter;
     public Button settingsButton;
@@ -39,18 +39,16 @@ public class menu extends AppCompatActivity{
     private DBPoints dbAdapter;
     Button graph_menu;
 
-    public void initButtons()
-    {
-        settingsButton = (Button)findViewById(R.id.Settings);
+    public void initButtons() {
+        settingsButton = (Button) findViewById(R.id.Settings);
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
 
                 Intent toy = new Intent(menu.this, settings.class);
                 startActivity(toy);
             }
         });
-
 
 
     }
@@ -73,7 +71,6 @@ public class menu extends AppCompatActivity{
         double rollDegrees;
 
         Calendar calendar;
-
 
 
         //Contstructor
@@ -120,10 +117,9 @@ public class menu extends AppCompatActivity{
 
             //Checks the sensor that generated this event and see
             //which had changed
-            if(sensorEvent.sensor.getType() == Sensor.TYPE_ACCELEROMETER){
+            if (sensorEvent.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
                 axisAccel = sensorEvent.values.clone();
-            }
-            else if(sensorEvent.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD){
+            } else if (sensorEvent.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD) {
                 axisMag = sensorEvent.values.clone();
 
             }
@@ -131,44 +127,49 @@ public class menu extends AppCompatActivity{
             //Checks if neither of hte values are null,
             //which means that somme of them have a
             //new rotation matrix
-            if(!(axisMag == null || axisAccel == null)){
+            if (!(axisMag == null || axisAccel == null)) {
                 boolean matrixExist = SensorManager.getRotationMatrix(inR, I, axisAccel, axisMag);
                 //Gets the new orientational values from
                 //change in factor
-                if(matrixExist){
+                if (matrixExist) {
                     SensorManager.getOrientation(inR, orientationDegrees);
                     azimuthDegrees = Math.toDegrees(orientationDegrees[0]);
                     pitchDegrees = Math.toDegrees(orientationDegrees[1]);
                     rollDegrees = Math.toDegrees(orientationDegrees[2]);
                     //Checks if the phone is asllep or not
-                    PowerManager pmanager = (PowerManager) getSystemService(Context.POWER_SERVICE);
-                    boolean sleepMode = pmanager.isInteractive();
-                    if(sleepMode){
-                        int healthy_posture = 1;
-                        if(rollDegrees < DEG_MIN){
-                            healthy_posture = 0;
-                            Toast.makeText(getApplicationContext(),
-                                    "Your head is too low.",Toast.LENGTH_SHORT).show();
-                        }
-                        else if(rollDegrees > DEG_MAX){
-                            healthy_posture = 0;
-                            Toast.makeText(getApplicationContext(),
-                                    "Your head is too high.",Toast.LENGTH_SHORT).show();
-                        }
-                        insertPoints(calendar.getTime(), (int) rollDegrees, healthy_posture);
-                    }
+                    checkHealthy((int) rollDegrees);
                 }
             }
         }
 
-        public void insertPoints(Date time, int degrees, int healthy_posture){
-            long id = dbadapter.insertRow(time, degrees, healthy_posture);
 
+        private void checkHealthy(int rollDegrees){
+            //Checks if the phone is asllep or not
+            PowerManager pmanager = (PowerManager) getSystemService(Context.POWER_SERVICE);
+            boolean sleepMode = pmanager.isInteractive();
+            if (sleepMode) {
+                int healthy_posture = 1;
+                //Checks if the current angle is wthin the healthy posture
+                if (rollDegrees < DEG_MIN) {
+                    healthy_posture = 0;
+                    Toast.makeText(getApplicationContext(),
+                            "Your head is too low.", Toast.LENGTH_SHORT).show();
+                } else if (rollDegrees > DEG_MAX) {
+                    healthy_posture = 0;
+                    Toast.makeText(getApplicationContext(),
+                            "Your head is too high.", Toast.LENGTH_SHORT).show();
+                }
+                insertPoints(calendar.getTime(), (int) rollDegrees, healthy_posture);
+            }
+        }
+
+        //Inserts point to data base
+        public void insertPoints(Date time, int degrees, int healthy_posture) {
+            openDB();
+            long id = dbadapter.insertRow(time, degrees, healthy_posture);
+            closeDB();
         }
     }
-
-
-
 
 
     private void closeDB() {
@@ -181,11 +182,7 @@ public class menu extends AppCompatActivity{
         dbadapter.open();
 
 
-
     }
-
-
-
 
 
     @Override
@@ -201,27 +198,18 @@ public class menu extends AppCompatActivity{
     }
 
 
-
-
-
-
-
-    public void initiateTime(){
+    public void initiateTime() {
 
     }
 
 
-
-
-
-
-    public void buttonListener(){
+    public void buttonListener() {
         final Context context = this;
         graph_menu = (Button) findViewById(R.id.Graph);
         graph_menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent graphIntent =  new Intent(context, graph_menu.class);
+                Intent graphIntent = new Intent(context, graph_menu.class);
                 startActivity(graphIntent);
             }
         });
@@ -229,7 +217,7 @@ public class menu extends AppCompatActivity{
     }
 
     //This returns the angle orientation by getting x,y,z
-    private int angleOrientation(){
+    private int angleOrientation() {
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
         return 0;

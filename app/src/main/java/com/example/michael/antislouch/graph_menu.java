@@ -132,9 +132,11 @@ public class graph_menu extends AppCompatActivity {
 
         graph.addSeries(series);
         //date time format
-        graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(this));
-
-
+        try {
+            graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(this));
+        }catch (Exception e){
+            Log.e("graph_menu", "something wrong with date time");
+        }
 
     }
 
